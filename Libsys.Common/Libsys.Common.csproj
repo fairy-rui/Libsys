@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76AAADC2-F211-4B48-A9F0-DB9B140879A6}</ProjectGuid>
+    <ProjectGuid>{AB58BE25-AAA2-4F4E-8B5D-DD7EA6AD0FF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Libsys.Domain</RootNamespace>
-    <AssemblyName>Libsys.Domain</AssemblyName>
+    <RootNamespace>Libsys.Common</RootNamespace>
+    <AssemblyName>Libsys.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apstars">
-      <HintPath>..\libs\Apstars.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,21 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AggregateRootBase.cs" />
-    <Compile Include="Model\Author.cs" />
-    <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\BorrowRecord.cs" />
-    <Compile Include="Model\BorrowStatus.cs" />
-    <Compile Include="Model\Category.cs" />
-    <Compile Include="Model\Exntensions\AggregateRootBase.cs" />
-    <Compile Include="Model\Permission.cs" />
-    <Compile Include="Model\Privilege.cs" />
-    <Compile Include="Model\Publisher.cs" />
-    <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\Staff.cs" />
-    <Compile Include="Model\Reader.cs" />
-    <Compile Include="Model\ReaderType.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="CryptoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
