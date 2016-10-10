@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityFramework\LibsysContext.cs" />
+    <Compile Include="EntityFramework\LibsysDatabaseInitializationStrategy.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\BookEntityConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\BorrowRecordEntityConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\CategoryEntityConfiguration.cs" />
@@ -67,6 +69,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Libsys.Common\Libsys.Common.csproj">
+      <Project>{ab58be25-aaa2-4f4e-8b5d-dd7ea6ad0ff4}</Project>
+      <Name>Libsys.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libsys.Domain\Libsys.Domain.csproj">
       <Project>{76aaadc2-f211-4b48-a9f0-db9b140879a6}</Project>
       <Name>Libsys.Domain</Name>

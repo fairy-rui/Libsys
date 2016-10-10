@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libsys.Common", "Libsys.Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libsys.Domain.Repositories", "Libsys.Domain.Repositories\Libsys.Domain.Repositories.csproj", "{4CAB8D22-1222-4A20-855C-DE8EF3B72B38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libsys.WebApi", "Libsys.WebApi\Libsys.WebApi.csproj", "{428F4CA2-8F8B-4EE5-BF53-4C4434D10FC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{4CAB8D22-1222-4A20-855C-DE8EF3B72B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CAB8D22-1222-4A20-855C-DE8EF3B72B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CAB8D22-1222-4A20-855C-DE8EF3B72B38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{428F4CA2-8F8B-4EE5-BF53-4C4434D10FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{428F4CA2-8F8B-4EE5-BF53-4C4434D10FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{428F4CA2-8F8B-4EE5-BF53-4C4434D10FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{428F4CA2-8F8B-4EE5-BF53-4C4434D10FC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +43,6 @@ Global
 		{76AAADC2-F211-4B48-A9F0-DB9B140879A6} = {0B15EB8A-8BD6-47E2-BD0E-E307C389D3E1}
 		{AB58BE25-AAA2-4F4E-8B5D-DD7EA6AD0FF4} = {0B15EB8A-8BD6-47E2-BD0E-E307C389D3E1}
 		{4CAB8D22-1222-4A20-855C-DE8EF3B72B38} = {0B15EB8A-8BD6-47E2-BD0E-E307C389D3E1}
+		{428F4CA2-8F8B-4EE5-BF53-4C4434D10FC0} = {0B15EB8A-8BD6-47E2-BD0E-E307C389D3E1}
 	EndGlobalSection
 EndGlobal
