@@ -106,8 +106,13 @@ namespace Libsys.Common
         /// <returns>an encrypted string</returns>
         public string Encrypt(string inputText, string password)
         {
-            this.Password = password;
-            return this.Encrypt(inputText);
+            if (!string.IsNullOrEmpty(inputText) &&
+                !string.IsNullOrEmpty(password))
+            {
+                this.Password = password;
+                return this.Encrypt(inputText);
+            }
+            return null;
         }
 
         /// <summary>
@@ -163,8 +168,13 @@ namespace Libsys.Common
         /// <returns>a decrypted string</returns>
         public string Decrypt(string inputText, string password)
         {
-            this.Password = password;
-            return Decrypt(inputText);
+            if (!string.IsNullOrEmpty(inputText) &&
+                !string.IsNullOrEmpty(password))
+            {
+                this.Password = password;
+                return Decrypt(inputText);
+            }
+            return null;
         }
 
         /// <summary>
@@ -299,7 +309,25 @@ namespace Libsys.Common
         public static string ComputeHash(string source, string salt, Encoding encoding = null)
         {
             if (encoding == null)
-                encoding = new UTF8Encoding();           
+                encoding = new UTF8Encoding();
+            // TODO: Need change when releasing CloudNotes
+            // System.Security.Cryptography.SHA1Cng
+            // System.Security.Cryptography.SHA1CryptoServiceProvider
+            // System.Security.Cryptography.SHA1Managed
+            // System.Security.Cryptography.HMAC
+            // System.Security.Cryptography.MACTripleDES
+            // System.Security.Cryptography.MD5Cng
+            // System.Security.Cryptography.MD5CryptoServiceProvider
+            // System.Security.Cryptography.RIPEMD160Managed
+            // System.Security.Cryptography.SHA256Cng
+            // System.Security.Cryptography.SHA256CryptoServiceProvider
+            // System.Security.Cryptography.SHA256Managed
+            // System.Security.Cryptography.SHA384Cng
+            // System.Security.Cryptography.SHA384CryptoServiceProvider
+            // System.Security.Cryptography.SHA384Managed
+            // System.Security.Cryptography.SHA512Cng
+            // System.Security.Cryptography.SHA512CryptoServiceProvider
+            // System.Security.Cryptography.SHA512Managed
 
             var provider = SHA1.Create();
             var encryptedPasswordArray = provider.ComputeHash(encoding.GetBytes(string.Concat(source, salt)));
