@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="EntityFramework\LibsysContext.cs" />
     <Compile Include="EntityFramework\LibsysDatabaseInitializationStrategy.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\AuthorEntityConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\BookEntityConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\BorrowRecordEntityConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\CategoryEntityConfiguration.cs" />

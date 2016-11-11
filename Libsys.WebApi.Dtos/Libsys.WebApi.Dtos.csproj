@@ -30,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apstars">
+    <Reference Include="Apstars, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Apstars.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -43,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Book\BookDto4R.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCriteria.cs" />
   </ItemGroup>

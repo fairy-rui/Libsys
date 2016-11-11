@@ -8,7 +8,7 @@ namespace Libsys.Domain.Model
     /// </summary>
     public partial class Reader : User
     {
-        public Guid ReaderTypeID { get; set; }
+        //public Guid ReaderTypeID { get; set; }
         public ReaderType ReaderType { get; set; }  //读者类型 
               
         public DateTime EffectiveDate { get; set; } //生效日期

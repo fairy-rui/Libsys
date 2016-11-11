@@ -4,12 +4,15 @@ using Apstars.Querying;
 using Apstars.Repositories;
 using Apstars.Specifications;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Libsys.Common;
 using Libsys.Domain.Model;
+using Libsys.WebApi.Dtos;
 using Libsys.WebApi.Models.Exceptions;
 using Libsys.WebApi.Models.Filters;
 using log4net;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Http;
 using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
@@ -17,7 +20,7 @@ using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 namespace Libsys.WebApi.Controllers
 {
     /// <summary>
-    ///     Represents the base class for Web API controllers.
+    /// Represents the base class for Web API controllers.
     /// </summary>
     [WebApiExceptionHandler]
     [WebApiModelValidation]
@@ -71,12 +74,12 @@ namespace Libsys.WebApi.Controllers
         /// <param name="against">The aggregate root object to be checked.</param>
         /// <param name="repository">The repository for the aggregate root.</param>
         /// <param name="requiresItExists">The checking logic switcher.</param>
-        /// <exception cref="CloudNotes.WebAPI.Models.Exceptions.EntityAlreadyExistsException">
+        /// <exception cref="Libsys.WebApi.Models.Exceptions.EntityAlreadyExistsException">
         ///     Throws when the <paramref name="requiresItExists" /> is set to <c>false</c> but the aggregate root exists.
         /// </exception>
         /// <exception>
         ///     Throws when the
-        ///     <cref>CloudNotes.WebAPI.Models.Exceptions.EntityDoesNotExistException</cref>
+        ///     <cref>Libsys.WebApi.Models.Exceptions.EntityDoesNotExistException</cref>
         ///     <paramref name="requiresItExists" /> is set to <c>true</c> but the aggregate root does not exist.
         /// </exception>
         protected virtual void RequireExistance<T>(T against, IRepository<T> repository, bool requiresItExists = true)
@@ -94,12 +97,12 @@ namespace Libsys.WebApi.Controllers
         /// <param name="requiresItExists">The checking logic switcher.</param>
         /// <exception>
         ///     Throws when the
-        ///     <cref>CloudNotes.WebAPI.Models.Exceptions.EntityAlreadyExistsException</cref>
+        ///     <cref>Libsys.WebApi.Models.Exceptions.EntityAlreadyExistsException</cref>
         ///     <paramref name="requiresItExists" /> is set to <c>false</c> but the aggregate root exists.
         /// </exception>
         /// <exception>
         ///     Throws when the
-        ///     <cref>CloudNotes.WebAPI.Models.Exceptions.EntityDoesNotExistException</cref>
+        ///     <cref>Libsys.WebApi.Models.Exceptions.EntityDoesNotExistException</cref>
         ///     <paramref name="requiresItExists" /> is set to <c>true</c> but the aggregate root does not exist.
         /// </exception>
         protected virtual void RequireExistance<T>(Guid id, IRepository<T> repository, bool requiresItExists = true)
@@ -144,6 +147,81 @@ namespace Libsys.WebApi.Controllers
                         "The aggregate root of type '{0}' does not exist in the repository. The checking expression is '{1}'",
                         typeof(T), checking));
             }
+        }
+
+        /// <summary>
+        /// Gets the result by criteria.
+        /// </summary>
+        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+        /// <typeparam name="TViewModel">The type of the dto.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">repository</exception>      
+        protected virtual IEnumerable<TDto> GetByCriteria<TAggregateRoot, TDto>(
+            IRepository<TAggregateRoot> repository,
+            QueryCriteria<TAggregateRoot> criteria)
+            where TAggregateRoot : class, IAggregateRoot, new()
+            where TDto : class, IEntityDto, new()
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+
+            if (criteria == null)
+            {
+                return repository.FindAll().ProjectTo<TDto>();
+            }
+
+            Specification<TAggregateRoot> querySpecification = new AnySpecification<TAggregateRoot>();
+            if (!string.IsNullOrEmpty(criteria.FilterExpression))
+            {
+                querySpecification =
+                    Specification<TAggregateRoot>.Eval(
+                        DynamicExpression.ParseLambda<TAggregateRoot, bool>(criteria.FilterExpression));
+            }
+
+            if (criteria.PageSize.HasValue && criteria.PageNumber.HasValue)
+            {               
+                return repository.FindAll(querySpecification, criteria.sortSpecification,
+                    criteria.PageNumber.Value, criteria.PageSize.Value)
+                    .CastPagedResult<TAggregateRoot, TDto>(Mapper.Map<TAggregateRoot, TDto>);
+            }
+            return repository
+                .FindAll(querySpecification, criteria.sortSpecification)
+                .ProjectTo<TDto>();
+        }
+
+        /// <summary>
+        /// Gets the result by criteria.
+        /// </summary>
+        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
+        /// <typeparam name="TDto">The type of the dto.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="filterExpression">The filter expression.</param>
+        /// <param name="sortSpecification">The sorting specification.</param>
+        /// <returns></returns>
+        protected virtual IEnumerable<TDto> GetByCriteria<TAggregateRoot, TDto>(
+            IRepository<TAggregateRoot> repository,
+            string filterExpression = null, SortSpecification<TAggregateRoot> sortSpecification = null)
+            where TAggregateRoot : class, IAggregateRoot, new()
+            where TDto : class, IEntityDto, new()
+        {
+            if (repository == null)
+            {
+                throw new ArgumentNullException("repository");
+            }
+
+            Specification<TAggregateRoot> querySpecification = new AnySpecification<TAggregateRoot>();
+            if (!string.IsNullOrEmpty(filterExpression))
+            {
+                querySpecification =
+                    Specification<TAggregateRoot>.Eval(
+                        DynamicExpression.ParseLambda<TAggregateRoot, bool>(filterExpression));
+            }
+            
+            return repository.FindAll(querySpecification, sortSpecification).ProjectTo<TDto>();
         }
 
         /// <summary>

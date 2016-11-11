@@ -27,10 +27,12 @@ namespace Libsys.Domain.Repositories.EntityFramework.ModelConfigurations
             //一对多关系
             HasRequired<Reader>(x => x.Reader)
                 .WithMany(x => x.BorrowRecords)
-                .HasForeignKey(x => x.ReaderID);
+                //.HasForeignKey(x => x.ReaderID)
+                .Map(x => x.MapKey("ReaderID"));
             HasRequired<Book>(x => x.Book)
                 .WithMany(x => x.BorrowRecords)
-                .HasForeignKey(x => x.BookID);
+                //.HasForeignKey(x => x.BookID)
+                .Map(x => x.MapKey("BookID"));
         }
     }
 }

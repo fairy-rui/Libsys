@@ -12,7 +12,7 @@ namespace Libsys.WebApi
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance(new LibsysContext())
+            builder.RegisterType<LibsysContext>()
                 .As<DbContext>()
                 .InstancePerLifetimeScope();
 
@@ -22,7 +22,8 @@ namespace Libsys.WebApi
 
             builder.RegisterGeneric(typeof(EntityFrameworkRepository<>))
                 .As(typeof(IRepository<>))
-                .InstancePerDependency();   //每次请求都会返回新的实例   
+                //.InstancePerDependency();   //每次请求都会返回新的实例   
+                .InstancePerLifetimeScope();
 
             var config = GlobalConfiguration.Configuration;
             // Register your Web API controllers.

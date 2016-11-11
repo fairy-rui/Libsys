@@ -10,10 +10,10 @@ namespace Libsys.Domain.Model
     {
         public Guid ID { get; set; }
         
-        public Guid BookID { get; set; } //图书ID
-        public virtual Book Book { get; set; }
-        public Guid ReaderID { get; set; }  //读者ID
-        public virtual Reader Reader { get; set; }
+        //public Guid BookID { get; set; } //图书ID
+        public virtual Book Book { get; set; }  //图书
+        //public Guid ReaderID { get; set; }  //读者ID
+        public virtual Reader Reader { get; set; }  //读者
 
         public DateTime BorrowDate { get; set; }    //借出日期
         public DateTime DueDate { get; set; }   //应还日期

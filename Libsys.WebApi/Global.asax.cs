@@ -18,6 +18,9 @@ namespace Libsys.WebApi
 
             /* Apstars Configuration */
             ApstarsConfig.Initialize();
+
+            /* AutoMapper Configuration */
+            AutoMapperConfig.Initialize();
         }
     }
 }

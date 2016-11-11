@@ -28,13 +28,19 @@ namespace Libsys.Domain.Repositories.EntityFramework.ModelConfigurations
             Property(x => x.PublishDate)
                 .HasColumnType("date")
                 .IsOptional();
+            //值对象映射
+            Property(c => c.Publisher.Name)
+                .HasColumnName("PublisherName")
+                .IsRequired()
+                .HasMaxLength(256)
+                .IsUnicode();
             Property(c => c.ISBN)
                 .IsRequired()
                 .HasMaxLength(64)
                 .IsUnicode();
             Property(c => c.UnitPrice)
                 .HasPrecision(4, 2);
-
+           
             //多对多关系            
             HasMany<Category>(x => x.Categorization)
                 .WithMany(c => c.Books)
@@ -43,6 +49,14 @@ namespace Libsys.Domain.Repositories.EntityFramework.ModelConfigurations
                     bc.MapLeftKey("BookID");
                     bc.MapRightKey("CategoryID");
                     bc.ToTable("Categorization");
+                });
+            HasMany(x => x.Authors)
+                .WithMany(c => c.Books)
+                .Map(m =>
+                {
+                    m.MapLeftKey("BookID");
+                    m.MapRightKey("AuthorID");
+                    m.ToTable("BookAuthor");
                 });
         }
     }

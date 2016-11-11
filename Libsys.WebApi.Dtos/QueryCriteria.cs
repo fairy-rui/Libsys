@@ -4,6 +4,11 @@ using System;
 
 namespace Libsys.WebApi.Dtos
 {
+    /// <summary>
+    /// The query criteria.
+    /// </summary>
+    /// <typeparam name="TKey">The key of the aggregateRoot.</typeparam>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class QueryCriteria<TKey, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<TKey>, new()
         where TKey : IEquatable<TKey>
@@ -19,7 +24,10 @@ namespace Libsys.WebApi.Dtos
         public SortSpecification<TKey, TAggregateRoot> sortSpecification { get; set; }        
     }
 
-
+    /// <summary>
+    /// The query criteria.
+    /// </summary>
+    /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
     public class QueryCriteria<TAggregateRoot> : QueryCriteria<Guid, TAggregateRoot>
         where TAggregateRoot : class, IAggregateRoot<Guid>, new()
     {

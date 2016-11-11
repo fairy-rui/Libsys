@@ -16,7 +16,8 @@ namespace Libsys.Domain.Repositories.EntityFramework.ModelConfigurations
 
             HasRequired<ReaderType>(x => x.ReaderType)
                 .WithMany(x => x.Readers)
-                .HasForeignKey(x => x.ReaderTypeID);
+                //.HasForeignKey(x => x.ReaderTypeID)
+                .Map(x => x.MapKey("ReaderTypeID"));
         }
     }
 }

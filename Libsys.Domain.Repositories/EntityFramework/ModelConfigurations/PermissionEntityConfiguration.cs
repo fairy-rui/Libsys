@@ -18,10 +18,12 @@ namespace Libsys.Domain.Repositories.EntityFramework.ModelConfigurations
             //一对多关系
             HasRequired<Role>(x => x.Role)
                 .WithMany(x => x.Permissions)
-                .HasForeignKey(x => x.RoleID);
+                //.HasForeignKey(x => x.RoleID)
+                .Map(x => x.MapKey("RoleID"));
             HasRequired<Privilege>(x => x.Privilege)
                 .WithMany(x => x.Roles)
-                .HasForeignKey(x => x.PrivilegeID);
+                //.HasForeignKey(x => x.PrivilegeID)
+                .Map(x => x.MapKey("PrivilegeID"));
         }
     }
 }
